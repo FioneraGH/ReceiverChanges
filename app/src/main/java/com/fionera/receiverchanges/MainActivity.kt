@@ -4,6 +4,7 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Network
@@ -14,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
 import com.fionera.receiverchanges.nougat.svelte.ImplicitAction
+import com.fionera.receiverchanges.oreo.action.Actions
+import com.fionera.receiverchanges.oreo.receiver.ManifestStaticReceiver
+import com.fionera.receiverchanges.oreo.receiver.RegisterDynamicReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -31,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initViews()
+
+        scheduleJob()
+
+        registerCallback()
+
+        registerBroadcastReceiver();
     }
 
     override fun onDestroy() {
@@ -39,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val registerConnectivityReceiver = RegisterConnectivityReceiver()
+    private val registerDynamicReceiver = RegisterDynamicReceiver()
     private val connCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network?) {
             println("Connectivity Callback Available: ${network?.toString()}")
@@ -64,9 +75,43 @@ class MainActivity : AppCompatActivity() {
             unregisterReceiver(registerConnectivityReceiver)
         }
 
-        scheduleJob()
+        btn_static_send.setOnClickListener {
+            val intent = Intent()
+            intent.action = Actions.STATIC
+            sendBroadcast(intent)
+        }
 
-        registerCallback()
+        btn_static_send_with_pkg.setOnClickListener {
+            val intent = Intent()
+            intent.action = Actions.STATIC
+            intent.setPackage(packageName)
+            sendBroadcast(intent)
+        }
+
+        btn_static_send_explicit.setOnClickListener {
+            val intent = Intent()
+            intent.setClass(this@MainActivity, ManifestStaticReceiver::class.java)
+            sendBroadcast(intent)
+        }
+
+        btn_dynamic_send.setOnClickListener {
+            val intent = Intent()
+            intent.action = Actions.DYNAMIC
+            sendBroadcast(intent)
+        }
+
+        btn_dynamic_send_with_pkg.setOnClickListener {
+            val intent = Intent()
+            intent.action = Actions.DYNAMIC
+            intent.setPackage(packageName)
+            sendBroadcast(intent)
+        }
+
+        btn_dynamic_send_explicit.setOnClickListener {
+            val intent = Intent()
+            intent.setClass(this@MainActivity, RegisterDynamicReceiver::class.java)
+            sendBroadcast(intent)
+        }
     }
 
     private fun scheduleJob() {
@@ -87,5 +132,15 @@ class MainActivity : AppCompatActivity() {
     private fun unregisterCallback() {
         val connManger = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         connManger.unregisterNetworkCallback(connCallback)
+    }
+
+    private fun registerBroadcastReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Actions.DYNAMIC)
+        registerReceiver(registerDynamicReceiver, intentFilter)
+    }
+
+    private fun unregisterBroadcastReceiver() {
+        unregisterReceiver(registerDynamicReceiver)
     }
 }

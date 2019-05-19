@@ -27,10 +27,45 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_conn_manager"
+            android:id="@+id/btn_static_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ConnectivityManager"
+            android:text="StaticSend"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_static_send_with_pkg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="StaticSendPkg"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_static_send_explicit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="StaticSendExplicit"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_dynamic_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DynamicSend"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_dynamic_send_with_pkg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DynamicSendPkg"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_dynamic_send_explicit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DynamicSendExplicit"
             android:textAllCaps="false" />
 
     </LinearLayout>

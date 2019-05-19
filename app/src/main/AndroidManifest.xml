@@ -31,6 +31,12 @@
                     tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".oreo.receiver.ManifestStaticReceiver"
+                  android:exported="false">
+            <intent-filter>
+                <action android:name="action.STATIC"/>
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".nougat.service.ConnectivityJobService"
