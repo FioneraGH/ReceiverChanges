@@ -12,6 +12,10 @@
         android:orientation="vertical"
         tools:ignore="HardcodedText">
 
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/layout_title" />
+
         <Button
             android:id="@+id/btn_conn_register"
             android:layout_width="match_parent"

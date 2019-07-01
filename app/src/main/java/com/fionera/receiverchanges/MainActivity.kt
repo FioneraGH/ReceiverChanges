@@ -1,16 +1,20 @@
 package com.fionera.receiverchanges
 
+import android.annotation.SuppressLint
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
@@ -18,6 +22,7 @@ import com.fionera.receiverchanges.nougat.svelte.ImplicitAction
 import com.fionera.receiverchanges.oreo.action.Actions
 import com.fionera.receiverchanges.oreo.receiver.ManifestStaticReceiver
 import com.fionera.receiverchanges.oreo.receiver.RegisterDynamicReceiver
+import com.fionera.receiverchanges.util.showToast
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -30,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         const val CONNECTIVITY_JOB_ID = 12768
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,11 +46,22 @@ class MainActivity : AppCompatActivity() {
 
         registerCallback()
 
-        registerBroadcastReceiver();
+        registerBroadcastReceiver()
+//        ll_title_container.getChildAt(0).setBackgroundColor(Color.CYAN)
+//        ll_title_container.setOnClickListener { showToast("Test") }
+//        tv_title.text = "Home"
+//        print(tv_title ?: "Cannot be resolved default")
+        (include_title as LinearLayout).getChildAt(0).setBackgroundColor(Color.CYAN)
+        include_title.setOnClickListener { showToast("Test") }
+        include_title.findViewById<TextView>(R.id.tv_title).text = "Home"
+//        print(tv_title ?: "Cannot be resolved default")
+//        tv_title.setOnClickListener { showToast("Test") }
+//        print("View is: ${tv_title ?: "Cannot be resolved default"}")
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterBroadcastReceiver()
         unregisterCallback()
     }
 
