@@ -1,2 +1,2 @@
 include ':app', ':core'
-rootProject.name='ReceiverChanges'
+rootProject.name='BehaviorChanges'

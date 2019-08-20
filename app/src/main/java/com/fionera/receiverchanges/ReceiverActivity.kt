@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.fionera.R
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
 import com.fionera.receiverchanges.nougat.svelte.ImplicitAction
@@ -23,13 +24,13 @@ import com.fionera.receiverchanges.oreo.action.Actions
 import com.fionera.receiverchanges.oreo.receiver.ManifestStaticReceiver
 import com.fionera.receiverchanges.oreo.receiver.RegisterDynamicReceiver
 import com.fionera.receiverchanges.util.showToast
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_receiver.*
 
 /**
  * MainActivity
  * Created by fionera on 2019-05-17 in ReceiverChanges.
  */
-class MainActivity : AppCompatActivity() {
+class ReceiverActivity : AppCompatActivity() {
 
     companion object {
         const val CONNECTIVITY_JOB_ID = 12768
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_receiver)
 
         initViews()
 
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_static_send_explicit.setOnClickListener {
             val intent = Intent()
-            intent.setClass(this@MainActivity, ManifestStaticReceiver::class.java)
+            intent.setClass(this@ReceiverActivity, ManifestStaticReceiver::class.java)
             sendBroadcast(intent)
         }
 
@@ -126,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_dynamic_send_explicit.setOnClickListener {
             val intent = Intent()
-            intent.setClass(this@MainActivity, RegisterDynamicReceiver::class.java)
+            intent.setClass(this@ReceiverActivity, RegisterDynamicReceiver::class.java)
             sendBroadcast(intent)
         }
     }

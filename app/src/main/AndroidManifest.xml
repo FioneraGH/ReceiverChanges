@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.fionera.receiverchanges">
+    package="com.fionera">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".receiverchanges.ReceiverActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -24,14 +24,18 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".nougat.receiver.ManifestConnectivityReceiver">
+        <activity
+            android:name=".elevation.ElevationActivity"
+            android:exported="true" />
+
+        <receiver android:name=".receiverchanges.nougat.receiver.ManifestConnectivityReceiver">
             <intent-filter>
                 <action
                     android:name="android.net.conn.CONNECTIVITY_CHANGE"
                     tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".oreo.receiver.ManifestStaticReceiver"
+        <receiver android:name=".receiverchanges.oreo.receiver.ManifestStaticReceiver"
                   android:exported="false">
             <intent-filter>
                 <action android:name="action.STATIC"/>
@@ -39,7 +43,7 @@
         </receiver>
 
         <service
-            android:name=".nougat.service.ConnectivityJobService"
+            android:name=".receiverchanges.nougat.service.ConnectivityJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
