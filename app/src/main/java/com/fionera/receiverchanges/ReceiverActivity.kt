@@ -13,6 +13,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +28,7 @@ import com.fionera.receiverchanges.util.showToast
 import kotlinx.android.synthetic.main.activity_receiver.*
 
 /**
- * MainActivity
+ * ReceiverActivity
  * Created by fionera on 2019-05-17 in ReceiverChanges.
  */
 class ReceiverActivity : AppCompatActivity() {
@@ -58,6 +59,9 @@ class ReceiverActivity : AppCompatActivity() {
 //        print(tv_title ?: "Cannot be resolved default")
 //        tv_title.setOnClickListener { showToast("Test") }
 //        print("View is: ${tv_title ?: "Cannot be resolved default"}")
+
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
     }
 
     override fun onDestroy() {

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fionera">
@@ -13,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".background.BackgroundActivity"
+            android:exported="true" />
+
+        <activity android:name=".background.TargetActivity" />
 
         <activity android:name=".receiverchanges.ReceiverActivity">
             <intent-filter>
@@ -35,10 +42,12 @@
                     tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiverchanges.oreo.receiver.ManifestStaticReceiver"
-                  android:exported="false">
+
+        <receiver
+            android:name=".receiverchanges.oreo.receiver.ManifestStaticReceiver"
+            android:exported="false">
             <intent-filter>
-                <action android:name="action.STATIC"/>
+                <action android:name="action.STATIC" />
             </intent-filter>
         </receiver>
 
