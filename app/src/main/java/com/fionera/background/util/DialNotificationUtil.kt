@@ -7,7 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.fionera.background.NotifyActivity
 import com.fionera.background.TargetActivity
+import com.fionera.background.receiver.AssistReceiver
 
 /**
  * DialNotificationUtil
@@ -47,6 +49,38 @@ object DialNotificationUtil {
         } else {
             nb.setContentIntent(pi)
         }
+
+        ns.notify(NOTIFY_ID, nb.build())
+    }
+
+    fun showOneshotAssistNotification() {
+        createNotificationChannel()
+
+        val nb = NotificationCompat.Builder(ContextUtil.applicationContext!!, NOTIFY_CHANNEL_ID)
+        nb.setSmallIcon(android.R.drawable.ic_menu_call)
+        nb.setContentTitle("一次通知")
+        nb.setContentText("点我打开")
+        nb.setAutoCancel(true)
+
+        val intent = Intent(ContextUtil.applicationContext, NotifyActivity::class.java)
+        val pi = PendingIntent.getActivity(ContextUtil.applicationContext, 0 , intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        nb.setContentIntent(pi)
+
+        ns.notify(NOTIFY_ID, nb.build())
+    }
+
+    fun showBroadcastAssistNotification() {
+        createNotificationChannel()
+
+        val nb = NotificationCompat.Builder(ContextUtil.applicationContext!!, NOTIFY_CHANNEL_ID)
+        nb.setSmallIcon(android.R.drawable.ic_menu_call)
+        nb.setContentTitle("广播通知")
+        nb.setContentText("点我打开")
+        nb.setAutoCancel(true)
+
+        val intent = Intent(ContextUtil.applicationContext, AssistReceiver::class.java)
+        val pi = PendingIntent.getBroadcast(ContextUtil.applicationContext, 0 , intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        nb.setContentIntent(pi)
 
         ns.notify(NOTIFY_ID, nb.build())
     }

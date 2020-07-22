@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <application
         android:allowBackup="false"
@@ -17,9 +18,15 @@
 
         <activity
             android:name=".background.BackgroundActivity"
+            android:launchMode="singleTask"
             android:exported="true" />
 
-        <activity android:name=".background.TargetActivity" />
+        <activity
+            android:name=".background.NotifyActivity"
+            android:taskAffinity="push.assist" />
+        <activity
+            android:name=".background.TargetActivity"
+            android:taskAffinity="push.target" />
 
         <activity android:name=".receiverchanges.ReceiverActivity">
             <intent-filter>
@@ -50,6 +57,8 @@
                 <action android:name="action.STATIC" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".background.receiver.AssistReceiver" />
 
         <service
             android:name=".receiverchanges.nougat.service.ConnectivityJobService"

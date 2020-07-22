@@ -31,4 +31,28 @@
         android:layout_height="wrap_content"
         android:text="ButtonDelayNotifyFull" />
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ButtonPageStart" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ButtonBroadcastStart" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ButtonDelayBroadcastStart" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ButtonDelayMoveTask" />
+
 </LinearLayout>

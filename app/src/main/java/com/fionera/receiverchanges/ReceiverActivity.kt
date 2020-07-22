@@ -18,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.fionera.R
+import com.fionera.background.BackgroundActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
 import com.fionera.receiverchanges.nougat.svelte.ImplicitAction
@@ -62,6 +63,9 @@ class ReceiverActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+        startActivity(Intent(this, BackgroundActivity::class.java))
+        finish()
     }
 
     override fun onDestroy() {
