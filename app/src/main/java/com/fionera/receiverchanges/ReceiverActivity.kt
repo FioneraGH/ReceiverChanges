@@ -19,6 +19,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.fionera.R
 import com.fionera.background.BackgroundActivity
+import com.fionera.motionlayout.MotionActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
 import com.fionera.receiverchanges.nougat.svelte.ImplicitAction
@@ -64,7 +65,7 @@ class ReceiverActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        startActivity(Intent(this, BackgroundActivity::class.java))
+        startActivity(Intent(this, MotionActivity::class.java))
         finish()
     }
 
@@ -77,16 +78,16 @@ class ReceiverActivity : AppCompatActivity() {
     private val registerConnectivityReceiver = RegisterConnectivityReceiver()
     private val registerDynamicReceiver = RegisterDynamicReceiver()
     private val connCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network?) {
-            println("Connectivity Callback Available: ${network?.toString()}")
+        override fun onAvailable(network: Network) {
+            println("Connectivity Callback Available: $network")
         }
 
-        override fun onLost(network: Network?) {
-            println("Connectivity Callback Lost: ${network?.toString()}")
+        override fun onLost(network: Network) {
+            println("Connectivity Callback Lost: $network")
         }
 
-        override fun onCapabilitiesChanged(network: Network?, networkCapabilities: NetworkCapabilities?) {
-            println("Connectivity Callback Changed: ${network?.toString()} / ${networkCapabilities?.toString()}")
+        override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            println("Connectivity Callback Changed: $network / $networkCapabilities")
         }
     }
 

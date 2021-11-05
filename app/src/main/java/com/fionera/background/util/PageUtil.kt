@@ -30,7 +30,7 @@ object PageUtil {
         val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         am.run {
             appTasks.forEach { _ ->
-                val task = appTasks.maxBy { itInner -> itInner.taskInfo.taskId }
+                val task = appTasks.maxByOrNull { itInner -> itInner.taskInfo.taskId }
                 task?.moveToFront()
                 println("TaskMoveToFront taskId:${task?.taskInfo?.taskId}")
             }

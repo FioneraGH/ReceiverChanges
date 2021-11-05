@@ -22,6 +22,9 @@
             android:exported="true" />
 
         <activity
+            android:name=".motionlayout.MotionActivity" />
+
+        <activity
             android:name=".background.NotifyActivity"
             android:taskAffinity="push.assist" />
         <activity
