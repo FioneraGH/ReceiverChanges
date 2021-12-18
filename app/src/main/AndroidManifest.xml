@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".compose.ComposePreviewActivity"
+            android:exported="false"
+            android:theme="@style/ComposeAppTheme" />
 
         <activity
             android:name=".background.BackgroundActivity"

@@ -5,8 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.widget.TextView
-import com.fionera.background.util.PageUtil
 
 class TargetActivity : AppCompatActivity() {
 
@@ -20,7 +20,7 @@ class TargetActivity : AppCompatActivity() {
 
         println("TargetActivity taskId:${taskId}")
 
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             println("back")
             moveTaskToBack(true)
         }, 1500)

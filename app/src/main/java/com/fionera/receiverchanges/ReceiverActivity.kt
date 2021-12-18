@@ -14,11 +14,11 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.fionera.R
-import com.fionera.background.BackgroundActivity
+import com.fionera.compose.ComposePreviewActivity
+import com.fionera.databinding.ActivityReceiverBinding
 import com.fionera.motionlayout.MotionActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
@@ -27,7 +27,6 @@ import com.fionera.receiverchanges.oreo.action.Actions
 import com.fionera.receiverchanges.oreo.receiver.ManifestStaticReceiver
 import com.fionera.receiverchanges.oreo.receiver.RegisterDynamicReceiver
 import com.fionera.receiverchanges.util.showToast
-import kotlinx.android.synthetic.main.activity_receiver.*
 
 /**
  * ReceiverActivity
@@ -39,10 +38,14 @@ class ReceiverActivity : AppCompatActivity() {
         const val CONNECTIVITY_JOB_ID = 12768
     }
 
+    private lateinit var binding: ActivityReceiverBinding
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_receiver)
+
+        binding = ActivityReceiverBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initViews()
 
@@ -55,9 +58,9 @@ class ReceiverActivity : AppCompatActivity() {
 //        ll_title_container.setOnClickListener { showToast("Test") }
 //        tv_title.text = "Home"
 //        print(tv_title ?: "Cannot be resolved default")
-        (include_title as LinearLayout).getChildAt(0).setBackgroundColor(Color.CYAN)
-        include_title.setOnClickListener { showToast("Test") }
-        include_title.findViewById<TextView>(R.id.tv_title).text = "Home"
+        binding.includeTitle.tvTitle.setBackgroundColor(Color.CYAN)
+        binding.includeTitle.root.setOnClickListener { showToast("Test") }
+        binding.includeTitle.root.findViewById<TextView>(R.id.tv_title).text = "Home"
 //        print(tv_title ?: "Cannot be resolved default")
 //        tv_title.setOnClickListener { showToast("Test") }
 //        print("View is: ${tv_title ?: "Cannot be resolved default"}")
@@ -65,7 +68,7 @@ class ReceiverActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        startActivity(Intent(this, MotionActivity::class.java))
+        startActivity(Intent(this, ComposePreviewActivity::class.java))
         finish()
     }
 
@@ -86,55 +89,58 @@ class ReceiverActivity : AppCompatActivity() {
             println("Connectivity Callback Lost: $network")
         }
 
-        override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+        override fun onCapabilitiesChanged(
+            network: Network,
+            networkCapabilities: NetworkCapabilities
+        ) {
             println("Connectivity Callback Changed: $network / $networkCapabilities")
         }
     }
 
     private fun initViews() {
-        btn_conn_register.setOnClickListener {
+        binding.btnConnRegister.setOnClickListener {
             val intentFilter = IntentFilter()
             intentFilter.addAction(ImplicitAction.CONNECTIVITY_ACTION)
             registerReceiver(registerConnectivityReceiver, intentFilter)
         }
 
-        btn_conn_unregister.setOnClickListener {
+        binding.btnConnUnregister.setOnClickListener {
             unregisterReceiver(registerConnectivityReceiver)
         }
 
-        btn_static_send.setOnClickListener {
+        binding.btnStaticSend.setOnClickListener {
             val intent = Intent()
             intent.action = Actions.STATIC
             sendBroadcast(intent)
         }
 
-        btn_static_send_with_pkg.setOnClickListener {
+        binding.btnStaticSendWithPkg.setOnClickListener {
             val intent = Intent()
             intent.action = Actions.STATIC
             intent.setPackage(packageName)
             sendBroadcast(intent)
         }
 
-        btn_static_send_explicit.setOnClickListener {
+        binding.btnStaticSendExplicit.setOnClickListener {
             val intent = Intent()
             intent.setClass(this@ReceiverActivity, ManifestStaticReceiver::class.java)
             sendBroadcast(intent)
         }
 
-        btn_dynamic_send.setOnClickListener {
+        binding.btnDynamicSend.setOnClickListener {
             val intent = Intent()
             intent.action = Actions.DYNAMIC
             sendBroadcast(intent)
         }
 
-        btn_dynamic_send_with_pkg.setOnClickListener {
+        binding.btnDynamicSendWithPkg.setOnClickListener {
             val intent = Intent()
             intent.action = Actions.DYNAMIC
             intent.setPackage(packageName)
             sendBroadcast(intent)
         }
 
-        btn_dynamic_send_explicit.setOnClickListener {
+        binding.btnDynamicSendExplicit.setOnClickListener {
             val intent = Intent()
             intent.setClass(this@ReceiverActivity, RegisterDynamicReceiver::class.java)
             sendBroadcast(intent)

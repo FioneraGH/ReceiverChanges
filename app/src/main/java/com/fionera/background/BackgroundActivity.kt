@@ -3,60 +3,64 @@ package com.fionera.background
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.fionera.R
 import com.fionera.background.util.DialNotificationUtil
 import com.fionera.background.util.PageUtil
-import kotlinx.android.synthetic.main.activity_background.*
+import com.fionera.databinding.ActivityBackgroundBinding
 
 class BackgroundActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityBackgroundBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_background)
+
+        binding = ActivityBackgroundBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         println("BackgroundActivity taskId:${taskId}")
 
-        button1.setOnClickListener {
-            Handler().postDelayed({
+        binding.button1.setOnClickListener {
+            Handler(Looper.getMainLooper()).postDelayed({
                 println("reached")
                 applicationContext.startActivity(Intent(this@BackgroundActivity, TargetActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 //                PageUtil.moveTaskToFront(this)
             }, 3000)
         }
 
-        button2.setOnClickListener {
+        binding.button2.setOnClickListener {
             DialNotificationUtil.showOngoingNotification()
         }
 
-        button3.setOnClickListener {
+        binding.button3.setOnClickListener {
             DialNotificationUtil.showOngoingNotification(true)
         }
 
-        button4.setOnClickListener {
-            Handler().postDelayed({
+        binding.button4.setOnClickListener {
+            Handler(Looper.getMainLooper()).postDelayed({
                 println("reached")
                 DialNotificationUtil.showOngoingNotification(true)
             }, 3000)
         }
 
-        button5.setOnClickListener {
+        binding.button5.setOnClickListener {
             DialNotificationUtil.showOneshotAssistNotification()
         }
 
-        button6.setOnClickListener {
+        binding.button6.setOnClickListener {
             DialNotificationUtil.showBroadcastAssistNotification()
         }
 
-        button7.setOnClickListener {
-            Handler().postDelayed({
+        binding.button7.setOnClickListener {
+            Handler(Looper.getMainLooper()).postDelayed({
                 println("reached")
                 DialNotificationUtil.showBroadcastAssistNotification()
             }, 3000)
         }
 
-        button8.setOnClickListener {
+        binding.button8.setOnClickListener {
             startActivity(Intent(this, TargetActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 println("reached")
                 PageUtil.moveTaskToFront(this)
 //                PageUtil.taskMoveToFront(this)
