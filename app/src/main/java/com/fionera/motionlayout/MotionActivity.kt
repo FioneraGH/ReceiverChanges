@@ -1,17 +1,11 @@
 package com.fionera.motionlayout
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
+import android.animation.*
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.transition.ChangeBounds
-import androidx.transition.Scene
-import android.transition.Transition
-import androidx.transition.TransitionManager
-import android.view.ViewTreeObserver
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.fionera.R
 import com.fionera.databinding.ActivityMotionBinding
 
 /**
@@ -69,14 +63,71 @@ class MotionActivity : AppCompatActivity() {
 //            }
 //        })
 
-        activityMotionBinding.vAnimateTarget.setOnClickListener {
-            val startScene =
-                Scene.getSceneForLayout(activityMotionBinding.root, R.layout.activity_motion, this)
-            val endScene =
-                Scene.getSceneForLayout(activityMotionBinding.root, R.layout.activity_motion_end, this)
+        val left = PropertyValuesHolder.ofInt("left", 60, 160, 60)
+        val top = PropertyValuesHolder.ofInt("top", 60, 0, 60)
+        val right = PropertyValuesHolder.ofInt("right", 360, 520, 360)
+        val bottom = PropertyValuesHolder.ofInt("bottom", 360, 420, 360)
+        val scrollX = PropertyValuesHolder.ofInt("scrollX", 0, -30, 0)
+        val scrollY = PropertyValuesHolder.ofInt("scrollY", 0, -60, 0)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            activityMotionBinding.llTransitionContainer.getChildAt(0),
+            left,
+            top,
+            right,
+            bottom,
+            scrollX,
+            scrollY,
+        )
+        animator.duration = 3000
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                println("AnimationEnd")
+            }
 
-            TransitionManager.go(endScene, ChangeBounds())
+            override fun onAnimationStart(animation: Animator?) {
+                println("AnimationStart")
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                println("AnimationCancel")
+
+                activityMotionBinding.llTransitionContainer.getChildAt(0).bottom = 250
+            }
+        })
+
+        activityMotionBinding.vAnimateTarget.setOnClickListener {
+//            val startScene =
+//                Scene.getSceneForLayout(activityMotionBinding.root, R.layout.activity_motion, this)
+//            val endScene =
+//                Scene.getSceneForLayout(activityMotionBinding.root, R.layout.activity_motion_end, this)
+//
+//            TransitionManager.go(endScene, ChangeBounds())
+
+            activityMotionBinding.llTransitionContainer.getChildAt(0).visibility =
+                if (activityMotionBinding.llTransitionContainer.getChildAt(0).isShown) View.GONE else View.VISIBLE
+
+//            activityMotionBinding.llTransitionContainer.layoutParams.height = 500
+//            activityMotionBinding.llTransitionContainer.requestLayout()
+
+//            if (animator.isRunning) {
+//                animator.cancel()
+//                return@setOnClickListener
+//            }
+//
+//            animator.setupStartValues()
+//
+//            animator.start()
         }
 
+        val slide = ObjectAnimator.ofInt(activityMotionBinding.llTransitionContainer.getChildAt(0), "rotation", -300, 0)
+        slide.duration = 3000
+
+        (activityMotionBinding.llTransitionContainer as? ViewGroup)?.layoutTransition?.apply {
+            setStartDelay(LayoutTransition.CHANGE_APPEARING, 3000)
+            setStartDelay(LayoutTransition.APPEARING, 1000)
+
+            setAnimator(LayoutTransition.APPEARING, slide)
+            setAnimator(LayoutTransition.DISAPPEARING, slide)
+        }
     }
 }

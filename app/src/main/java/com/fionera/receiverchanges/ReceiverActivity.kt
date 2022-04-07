@@ -68,7 +68,7 @@ class ReceiverActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        startActivity(Intent(this, ComposePreviewActivity::class.java))
+        startActivity(Intent(this, MotionActivity::class.java))
         finish()
     }
 
