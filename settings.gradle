@@ -1,2 +1,5 @@
 include ':app', ':core'
 rootProject.name='BehaviorChanges'
+include ':radar'
+
+includeBuild 'buildSource'
