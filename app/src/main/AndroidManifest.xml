@@ -29,6 +29,9 @@
             android:name=".motionlayout.MotionActivity" />
 
         <activity
+            android:name=".bottomsheet.BottomSheetActivity" />
+
+        <activity
             android:name=".background.NotifyActivity"
             android:taskAffinity="push.assist" />
         <activity

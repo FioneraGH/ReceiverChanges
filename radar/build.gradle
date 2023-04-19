@@ -7,7 +7,7 @@ import deps.app.Dependencies
 
 android {
     namespace 'com.radar'
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         minSdk 21

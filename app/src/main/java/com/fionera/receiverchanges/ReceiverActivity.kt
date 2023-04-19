@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.fionera.R
+import com.fionera.bottomsheet.BottomSheetActivity
 import com.fionera.compose.ComposePreviewActivity
 import com.fionera.databinding.ActivityReceiverBinding
 import com.fionera.motionlayout.MotionActivity
@@ -68,7 +69,7 @@ class ReceiverActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        startActivity(Intent(this, MotionActivity::class.java))
+        startActivity(Intent(this, BottomSheetActivity::class.java))
         finish()
     }
 

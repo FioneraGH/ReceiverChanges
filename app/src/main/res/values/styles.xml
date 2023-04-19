@@ -8,8 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:statusBarColor">#30FF0000</item>
+        <item name="android:navigationBarColor">#300000FF</item>
         <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+<!--  match
+    f0l0 2400 2159 navigation reset
+    f1l0 2277(123) 2159 status empty, navigation reset
+    f0l1 2159 2159 status transparent, navigation transparent
+    f1l1 2159 2159 status empty, navigation transparent-->
+    <style name="TransDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@null</item>
     </style>
 
 </resources>

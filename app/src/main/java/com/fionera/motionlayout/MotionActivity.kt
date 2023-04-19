@@ -80,15 +80,15 @@ class MotionActivity : AppCompatActivity() {
         )
         animator.duration = 3000
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 println("AnimationEnd")
             }
 
-            override fun onAnimationStart(animation: Animator?) {
+            override fun onAnimationStart(animation: Animator) {
                 println("AnimationStart")
             }
 
-            override fun onAnimationCancel(animation: Animator?) {
+            override fun onAnimationCancel(animation: Animator) {
                 println("AnimationCancel")
 
                 activityMotionBinding.llTransitionContainer.getChildAt(0).bottom = 250
