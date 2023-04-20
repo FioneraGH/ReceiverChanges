@@ -32,6 +32,9 @@
             android:name=".bottomsheet.BottomSheetActivity" />
 
         <activity
+            android:name=".player.PlayerActivity" />
+
+        <activity
             android:name=".background.NotifyActivity"
             android:taskAffinity="push.assist" />
         <activity

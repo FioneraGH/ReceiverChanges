@@ -21,6 +21,7 @@ import com.fionera.bottomsheet.BottomSheetActivity
 import com.fionera.compose.ComposePreviewActivity
 import com.fionera.databinding.ActivityReceiverBinding
 import com.fionera.motionlayout.MotionActivity
+import com.fionera.player.PlayerActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
 import com.fionera.receiverchanges.nougat.service.ConnectivityJobService
 import com.fionera.receiverchanges.nougat.svelte.ImplicitAction
@@ -69,7 +70,7 @@ class ReceiverActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        startActivity(Intent(this, BottomSheetActivity::class.java))
+        startActivity(Intent(this, PlayerActivity::class.java))
         finish()
     }
 

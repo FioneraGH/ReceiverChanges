@@ -5,44 +5,73 @@
 
 cmake_minimum_required(VERSION 3.18.1)
 
+set(CMAKE_VERBOSE_MAKEFILE on)
+
+# 支持gnu++11
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+
+message(CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
+message(CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS})
+
+set(PATH_TO_PREBUILT ${CMAKE_SOURCE_DIR}/../jniLibs)
+set(PATH_TO_FFMPEG ${CMAKE_SOURCE_DIR}/third_party/ffmpeg/include)
+set(PATH_TO_UTIL ${CMAKE_SOURCE_DIR}/util)
+
 # Declares and names the project.
 
 project("radar")
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
+include_directories(
+        ${PATH_TO_FFMPEG}
+        ${PATH_TO_UTIL}
+)
 
-add_library( # Sets the name of the library.
+message(LINK_LIBRARY: ${PATH_TO_PREBUILT}/${ANDROID_ABI})
+
+link_directories(
+        ${PATH_TO_PREBUILT}/${ANDROID_ABI}
+)
+
+file(GLOB SRC_FILES ${CMAKE_SOURCE_DIR}/*.cpp)
+
+file(GLOB SRC_FILES_MEDIA ${CMAKE_SOURCE_DIR}/media/*.cpp)
+file(GLOB SRC_FILES_DECODER ${CMAKE_SOURCE_DIR}/media/decoder/*.cpp)
+file(GLOB SRC_FILES_V_DECODER ${CMAKE_SOURCE_DIR}/media/decoder/video/*.cpp)
+
+file(GLOB SRC_FILES_RENDER ${CMAKE_SOURCE_DIR}/media/render/*.cpp)
+file(GLOB SRC_FILES_V_RENDER ${CMAKE_SOURCE_DIR}/media/render/video/*.cpp)
+file(GLOB SRC_FILES_NATIVE_V_RENDER ${CMAKE_SOURCE_DIR}/media/render/video/native_render/*.cpp)
+
+add_library(
         radar
-
-        # Sets the library as a shared library.
         SHARED
+        ${PATH_TO_UTIL}
+        ${CMAKE_SOURCE_DIR}/util/logger.h
+        ${CMAKE_SOURCE_DIR}/util/timer.c
+        ${SRC_FILES}
+        ${SRC_FILES_MEDIA}
+        ${SRC_FILES_DECODER}
+        ${SRC_FILES_V_DECODER}
+        ${SRC_FILES_V_RENDER}
+        ${SRC_FILES_NATIVE_V_RENDER}
+)
 
-        # Provides a relative path to your source file(s).
-        radar.cpp)
-
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because CMake includes system libraries in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
-
-find_library( # Sets the name of the path variable.
-        log-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
-        log)
-
-# Specifies libraries CMake should link to your target library. You
-# can link multiple libraries, such as libraries you define in this
-# build script, prebuilt third-party libraries, or system libraries.
-
-target_link_libraries( # Specifies the target library.
+target_link_libraries(
         radar
 
-        # Links the target library to the log library
-        # included in the NDK.
-        ${log-lib})
+#        avformat
+#        avcodec
+#        avfilter
+#        swresample
+#        swscale
+#        avutil
+        ffmpeg
+
+        android
+        EGL
+        GLESv3
+        OpenSLES
+        log
+        m
+        z
+)
