@@ -55,6 +55,11 @@
             android:name=".elevation.ElevationActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".foldable.WindowMetricsActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="true" />
+
         <receiver android:name=".receiverchanges.nougat.receiver.ManifestConnectivityReceiver">
             <intent-filter>
                 <action

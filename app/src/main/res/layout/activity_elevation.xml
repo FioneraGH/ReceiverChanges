@@ -40,5 +40,29 @@
             android:text="Btn4ElevationNoState"
             android:textAllCaps="false" />
 
+        <HorizontalScrollView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent">
+
+            <LinearLayout
+                android:id="@+id/ll_button_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:elevation="4dp"
+                    android:stateListAnimator="@null"
+                    android:text="Btn4ElevationNoState"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
     </LinearLayout>
 </ScrollView>

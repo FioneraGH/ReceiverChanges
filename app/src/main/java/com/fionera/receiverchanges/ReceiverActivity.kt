@@ -20,6 +20,8 @@ import com.fionera.R
 import com.fionera.bottomsheet.BottomSheetActivity
 import com.fionera.compose.ComposePreviewActivity
 import com.fionera.databinding.ActivityReceiverBinding
+import com.fionera.elevation.ElevationActivity
+import com.fionera.foldable.WindowMetricsActivity
 import com.fionera.motionlayout.MotionActivity
 import com.fionera.player.PlayerActivity
 import com.fionera.receiverchanges.nougat.receiver.RegisterConnectivityReceiver
@@ -70,7 +72,7 @@ class ReceiverActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        startActivity(Intent(this, PlayerActivity::class.java))
+        startActivity(Intent(this, WindowMetricsActivity::class.java))
         finish()
     }
 
