@@ -51,34 +51,14 @@
             android:background="#00FF00"
             android:padding="6dp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp">
+        <TextView
+            android:id="@+id/text_spannable"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="16dp"
+            tools:text="一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintDimensionRatio="w,3:5"
-                    android:background="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>

@@ -3,22 +3,30 @@ package com.fionera.foldable
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ScaleDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import androidx.window.layout.WindowInfoTracker
 import com.fionera.R
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -71,7 +79,7 @@ class WindowMetricsActivity : AppCompatActivity() {
 
         // WindowManager -> WindowInfoRepo -> WindowInfoRepository -> WindowInfoTracker
         val wmJetpack = WindowInfoTracker.getOrCreate(this)
-        GlobalScope.launch {
+        lifecycleScope.launch {
             val flow = wmJetpack.windowLayoutInfo(this@WindowMetricsActivity)
             flow.collect { info ->
                 Log.d("WindowMetricsTag", "Jetpack display features: ${info.displayFeatures}")
@@ -103,6 +111,27 @@ class WindowMetricsActivity : AppCompatActivity() {
         progressBar.max = 100
         progressBar.progress = 60
 
+
+        val textSpannable = findViewById<TextView>(R.id.text_spannable)
+
+        val text = "@一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
+        val ssb = SpannableStringBuilder(text).apply {
+                setSpan(object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        Toast.makeText(this@WindowMetricsActivity, "点击", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.color = Color.RED
+                    }
+                }, 0, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+//        textSpannable.addTextChangedListener { editable ->
+//            Toast.makeText(this@WindowMetricsActivity, editable, Toast.LENGTH_SHORT).show()
+//        }
+        textSpannable.movementMethod = LinkMovementMethod.getInstance()
+        textSpannable.text = ssb
+        ViewUtil.fixClickConflict(textSpannable)
     }
 
 }
